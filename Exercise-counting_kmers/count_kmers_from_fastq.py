@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import os, sys
 
@@ -26,19 +26,11 @@ def count_kmers(kmer_list):
 
     kmer_count_dict = dict()
 
-    ##################
-    ## Step 2:
-    ## begin your code
-
-
-
-
-
-
-
-
-    ## end your code
-    ################
+    for kmer in kmer_list:
+        if kmer not in kmer_count_dict:
+            kmer_count_dict[kmer] = 1
+        else:
+            kmer_count_dict[kmer] += 1
 
     return kmer_count_dict
 
@@ -64,20 +56,10 @@ def main():
 
     all_kmers = list()
 
-    #######################
-    ## Step 1:
-    ## begin your code, populate 'all_kmers' list with the
-    ## collection of kmers from all sequences
+    for sequence in seq_list:
+        kmers = sequence_to_kmer_list(sequence, kmer_length)
+        all_kmers.append(kmers)
 
-
-
-
-
-
-
-
-    ## end your code
-    #######################
 
     kmer_count_dict = count_kmers(
         all_kmers
