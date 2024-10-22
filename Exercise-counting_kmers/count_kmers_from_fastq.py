@@ -1,36 +1,21 @@
 #!/usr/bin/env python3
 
-import os, sys
+import sys
 
 from sequence_to_kmer_list import *
 from fastq_file_to_sequence_list import *
-
-
-## method: count_kmers(kmer_list)
-##
-##  Counts the frequency of each kmer in the given list of kmers
-##
-##  input parameters:
-##
-##  kmer_list : list of kmers (type: list)
-##               ie.  ["GATC", "TCGA", "GATC", ...]
-##
-##
-##  returns kmer_counts_dict : dict containing ( kmer : count )
-##                    ie.  {  "GATC" : 2,
-##                            "TCGA" : 1,
-##                             ...       }
 
 
 def count_kmers(kmer_list):
 
     kmer_count_dict = dict()
 
-    for kmer in kmer_list:
-        if kmer not in kmer_count_dict:
-            kmer_count_dict[kmer] = 1
-        else:
-            kmer_count_dict[kmer] += 1
+    for kmers in kmer_list:
+        for kmer in kmers:
+            if kmer not in kmer_count_dict:
+                kmer_count_dict[kmer] = 1
+            else:
+                kmer_count_dict[kmer] += 1
 
     return kmer_count_dict
 
@@ -61,27 +46,12 @@ def main():
         all_kmers.append(kmers)
 
 
-    kmer_count_dict = count_kmers(
-        all_kmers
-    )  # see step 2 above. You implement this. :-)
+    kmer_count_dict = count_kmers(all_kmers)
 
     unique_kmers = list(kmer_count_dict.keys())
-
-    #########################
-    ## Step 3: sort unique_kmers by abundance descendingly
-    ## (Note, you can run and test without first implementing Step 3)
-    ## begin your code       hint: see the built-in 'sorted' method documentation
-
-
-
-
-
-
-
-
-
-
-    ## end your code
+    
+    sorted_kmers = sorted(kmer_count_dict, key=kmer_count_dict.get, reverse=True)
+    unique_kmers = sorted_kmers
 
     ## printing the num top kmers to show
     top_kmers_show = unique_kmers[0:num_top_kmers_show]
