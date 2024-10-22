@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import os, sys
 
@@ -26,14 +26,15 @@ import os, sys
 def sequence_to_kmer_list(sequence, kmer_length):
 
     kmers_list = list()
-
-    ## begin your code
-
-
-
-
-    
-    ## end your code
+    begin = 0
+    end = kmer_length
+    for kmer in sequence:
+        kmer = sequence[begin:end]
+        if len(kmer) < kmer_length:
+            continue
+        kmers_list.append(kmer)
+        begin += 1
+        end += 1
 
     return kmers_list
 

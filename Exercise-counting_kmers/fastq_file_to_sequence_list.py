@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import re, sys
+import sys
 
 
 
@@ -18,7 +18,6 @@ import re, sys
     
 def seq_list_from_fastq_file(fastq_filename): 
     seq_list = list()
-    fastq_filename = sys.argv[1]
     line_count = 2
 
     with open(fastq_filename, 'r') as read_file:
