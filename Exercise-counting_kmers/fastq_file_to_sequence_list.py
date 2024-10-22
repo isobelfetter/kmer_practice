@@ -1,6 +1,6 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
-import os, sys
+import re, sys
 
 
 
@@ -16,18 +16,17 @@ import os, sys
 ##  returns seq_list : list of read sequences.
 ##                    ie.  ["GATCGCATAG", "CGATGCAG", ...]
     
-def seq_list_from_fastq_file(fastq_filename):
-
+def seq_list_from_fastq_file(fastq_filename): 
     seq_list = list()
+    fastq_filename = sys.argv[1]
+    line_count = 2
 
-    ## begin your code
-
-
-
-
-    
-    
-    ## end your code
+    with open(fastq_filename, 'r') as read_file:
+        for line in read_file:
+            line = line.rstrip()
+            line_count +=1
+            if line_count % 4 == 0:
+                seq_list.append(line)
 
     return seq_list
 
