@@ -73,12 +73,16 @@ def main():
             entropy *= -1
         
         kmer_entropy[kmer] = entropy
+        
+    average_entropy = sum(list(kmer_entropy.values()))/len(list(kmer_entropy.values()))
 
     ## printing the num top kmers to show
     top_kmers_show = unique_kmers[0:num_top_kmers_show]
+    
 
     for kmer in top_kmers_show:
-        print(f'{kmer}\t{kmer_count_dict[kmer]}\t{kmer_entropy[kmer]:.2f}')
+        #if kmer_entropy[kmer] > average_entropy:
+            print(f'{kmer}\t{kmer_count_dict[kmer]}\t{kmer_entropy[kmer]:.2f}')
 
     sys.exit(0)  # always good practice to indicate worked ok!
 
