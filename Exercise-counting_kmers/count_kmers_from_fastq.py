@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import sys
+import sys, math
 
 from sequence_to_kmer_list import *
 from fastq_file_to_sequence_list import *
@@ -46,18 +46,39 @@ def main():
         all_kmers.append(kmers)
 
 
+
     kmer_count_dict = count_kmers(all_kmers)
 
     unique_kmers = list(kmer_count_dict.keys())
     
     sorted_kmers = sorted(kmer_count_dict, key=kmer_count_dict.get, reverse=True)
     unique_kmers = sorted_kmers
+    kmer_entropy = dict()
+
+    for kmer in sorted_kmers:
+        probA = kmer.count('A') / len(kmer)
+        probG = kmer.count('G') / len(kmer)
+        probC = kmer.count('C') / len(kmer)
+        probT = kmer.count('T') / len(kmer)
+        entropy = 0
+        if probA > 0:
+            entropy += probA*math.log2(probA)
+        if probG > 0:
+            entropy += probG*math.log2(probG)
+        if probC > 0:
+            entropy += probC*math.log2(probC)
+        if probT > 0:
+            entropy += probT*math.log2(probT)
+        if entropy != 0:
+            entropy *= -1
+        
+        kmer_entropy[kmer] = entropy
 
     ## printing the num top kmers to show
     top_kmers_show = unique_kmers[0:num_top_kmers_show]
 
     for kmer in top_kmers_show:
-        print("{}: {}".format(kmer, kmer_count_dict[kmer]))
+        print(f'{kmer}\t{kmer_count_dict[kmer]}\t{kmer_entropy[kmer]:.2f}')
 
     sys.exit(0)  # always good practice to indicate worked ok!
 
